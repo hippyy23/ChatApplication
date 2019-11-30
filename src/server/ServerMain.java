@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public class ServerMain {
 
     public static final int PORT = 5000;
+    public static HashMap<Socket, String> users = new HashMap<>();
     public static ArrayList<Socket> clientThreads = new ArrayList<>();
     public static ArrayList<String> chat = new ArrayList<>();
 
