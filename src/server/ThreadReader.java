@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,15 +30,22 @@ public class ThreadReader extends Thread {
     @Override
     public void run() {
         System.out.println(socket.getInetAddress() + " joined");
+        String[] pm;
         String userName;
+        boolean sameUser = false;
+        boolean pmEx = false;
+
+        System.out.println(socket.getPort());
 
         try {
 
             strOut = new OutputStreamWriter(socket.getOutputStream());
             buffer = new BufferedWriter(strOut);
             out = new PrintWriter(buffer, true);
-            out.println("1] Insert your nickname\n"
+            out.println("-------------\n"
+                    + "1] Insert your nickname\n"
                     + "2] Continue with your ip address\n"
+                    + "-------------\n"
                     + "Insert choice: ");
 
             InputStreamReader strInput = new InputStreamReader(socket.getInputStream());
@@ -47,22 +55,46 @@ public class ThreadReader extends Thread {
 
             switch (choice) {
                 case "1":
-                    out.println("Insert your nickname: ");
-                    userName = in.readLine();
-                    out.println("Nickname set!"
-                            + "\nNow you can start chatting!");
+                    while (true) {
+                        out.println("-------------\n"
+                                + "Insert your nickname: ");
+                        userName = in.readLine();
+                        for (String user : ServerMain.users.values()) {
+                            if (!userName.equals(user)) {
+                                sameUser = false;
+                            } else if (userName.equals(user)) {
+                                sameUser = true;
+                            }
+                        }
+                        if (sameUser != false) {
+                            out.println("Username already taken");
+                        } else {
+
+                            out.println("-------------\n"
+                                    + "Nickname set!"
+                                    + "\nNow you can start chatting!\n"
+                                    + "-------------");
+                            break;
+                        }
+                    }
                     break;
                 case "2":
-                    out.println("IP address set as nickname!"
-                            + "\nNow you can start chatting!");
-                    userName = socket.getInetAddress().toString();
+                    out.println("-------------\n"
+                            + "IP address set as nickname!"
+                            + "\nNow you can start chatting!\n"
+                            + "-------------");
+                    userName = socket.getInetAddress().toString().replace("/", "");
                     break;
                 default:
-                    out.println("An error occured: IP address set as nikname!"
-                            + "\nNow you can start chatting!");
-                    userName = socket.getInetAddress().toString();
+                    out.println("-------------\n"
+                            + "An error occured: IP address set as nikname!"
+                            + "\nNow you can start chatting!\n"
+                            + "-------------");
+                    userName = socket.getInetAddress().toString().replace("/", "");
                     break;
             }
+
+            ServerMain.users.put(socket, userName);
 
             while (true) {
                 String str = in.readLine();
@@ -71,9 +103,24 @@ public class ThreadReader extends Thread {
                         System.out.println(socket.getInetAddress() + " left");
                         ServerMain.clientThreads.remove(socket);
                     } else if (str.equals("/list")) {
-                        ServerMain.clientThreads.forEach((clients) -> {
-                            out.println(clients.getInetAddress());
-                        });
+                        out.println("-------------\n"
+                                + "User list:");
+                        for (String user : ServerMain.users.values()) {
+                            out.println(user);
+                        }
+                        out.println("-------------");
+                    } else if (str.contains("/pm")) {
+                        // provare a usare la porta anzi che tutto il socket
+                        pm = str.split("\\s+");
+                        for (HashMap.Entry<Socket, String> user : ServerMain.users.entrySet()) {
+                            if (pm[1].equals(user.getValue())) {
+                                pmEx = true;
+                                new ThreadPM(userName, user.getKey(), pm[2]).start();
+                            }
+                        }
+                        if (!pmEx) {
+                            out.println("Username does not exists!");
+                        }
                     } else if (!str.contains("/")) {
                         synchronized (ServerMain.chat) {
                             ServerMain.chat.add(userName + ": " + str);
