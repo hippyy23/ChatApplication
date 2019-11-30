@@ -18,6 +18,7 @@ public class ClientMain {
         int port = 5000;
         String userInput;
         String[] splitConn;
+        Socket socket;
 
         while (true) {
 
@@ -28,7 +29,7 @@ public class ClientMain {
                 }
                 
                 conn = input.nextLine().toLowerCase();
-                splitConn =  conn.split("\\s+");
+                splitConn = conn.split("\\s+");
 
                 if (conn.contains("/connect")) {
                     try {
@@ -47,7 +48,7 @@ public class ClientMain {
 
             try {
 
-                Socket socket = new Socket(indirizzo, port);
+                socket = new Socket(indirizzo, port);
                 System.out.println("EchoClient: avviato");
                 System.out.println("Socket del client: " + socket);
                 
