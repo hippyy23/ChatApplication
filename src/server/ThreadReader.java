@@ -115,7 +115,7 @@ public class ThreadReader extends Thread {
                         for (HashMap.Entry<Socket, String> user : ServerMain.users.entrySet()) {
                             if (pm[1].equals(user.getValue())) {
                                 pmEx = true;
-                                new ThreadPM(userName, user.getKey(), pm[2]).start();
+                                new SendPM(userName, user.getKey(), pm[2]).send();
                             }
                         }
                         if (!pmEx) {
