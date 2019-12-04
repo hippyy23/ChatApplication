@@ -35,7 +35,7 @@ public class SendPM {
         }
         buffer = new BufferedWriter(strOut);
         out = new PrintWriter(buffer, true);
-        out.println(userSend + " send a pm: " + message);
+        out.println(userSend + " sent a pm: " + message);
     }
     
 }
