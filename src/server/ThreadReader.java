@@ -35,8 +35,6 @@ public class ThreadReader extends Thread {
         boolean sameUser = false;
         boolean pmEx = false;
 
-        System.out.println(socket.getPort());
-
         try {
 
             strOut = new OutputStreamWriter(socket.getOutputStream());
