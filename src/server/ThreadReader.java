@@ -108,12 +108,21 @@ public class ThreadReader extends Thread {
                         }
                         out.println("-------------");
                     } else if (str.contains("/pm")) {
-                        // provare a usare la porta anzi che tutto il socket
                         pm = str.split("\\s+");
                         for (HashMap.Entry<Socket, String> user : ServerMain.users.entrySet()) {
-                            if (pm[1].equals(user.getValue())) {
-                                pmEx = true;
-                                new SendPM(userName, user.getKey(), pm[2]).send();
+                            try {
+                                if (pm[1].equals(user.getValue())) {
+                                    pmEx = true;
+                                    try {
+                                        new SendPM(userName, user.getKey(), pm[2]).send();
+                                    } catch (ArrayIndexOutOfBoundsException ex) {
+                                        out.println("Error private message: missing message!");
+                                        // creare una chat privata tra i due user /reply per il dest
+                                        // new SendPM(userName, user.getKey()).start();
+                                    }
+                                }
+                            } catch (ArrayIndexOutOfBoundsException ex) {
+                                out.println("Error private message: missing user!");
                             }
                         }
                         if (!pmEx) {
