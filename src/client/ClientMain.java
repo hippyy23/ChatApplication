@@ -27,14 +27,14 @@ public class ClientMain {
                     System.out.println("Type /connect {[IP] [PORT]} to connect to a server"
                             + "\nType /quit to exit from the application");
                 }
-                
+
                 conn = input.nextLine().toLowerCase();
                 splitConn = conn.split("\\s+");
 
                 if (conn.contains("/connect")) {
                     try {
-                    indirizzo = splitConn[1];
-                    port = Integer.parseInt(splitConn[2]);
+                        indirizzo = splitConn[1];
+                        port = Integer.parseInt(splitConn[2]);
                     } catch (ArrayIndexOutOfBoundsException ex) {
                         System.out.println("Connecting to localhost...");
                     }
@@ -51,7 +51,7 @@ public class ClientMain {
                 socket = new Socket(indirizzo, port);
                 System.out.println("EchoClient: avviato");
                 System.out.println("Socket del client: " + socket);
-                
+
                 new ThreadClient(socket).start();
 
                 OutputStreamWriter osw = new OutputStreamWriter(socket.getOutputStream());
