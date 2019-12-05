@@ -15,26 +15,29 @@ import java.util.logging.Logger;
 public class SendPM extends Thread {
     
     private final String userSend;
-    private final Socket socketMit;
+    // private final Socket socketMit;
     private final Socket socketDest;
     private String message;
     private OutputStreamWriter strOut;
-    private OutputStreamWriter strIn;
+    // private OutputStreamWriter strIn;
     private BufferedWriter buffer;
     private PrintWriter out;
     
     public SendPM(String userSend, Socket socketDest, String message) {
         this.userSend = userSend;
+        // this.socketMit = socketMit;
         this.socketDest = socketDest;
         this.message = message;
     }
     
+    /**
     public SendPM(String userSend, Socket socketMit, Socket socketDest) {
         this.userSend = userSend;
         this.socketMit = socketMit;
         this.socketDest = socketDest;
     }
-
+    */
+    
     public void send() {
         try {
             strOut = new OutputStreamWriter(socketDest.getOutputStream());
@@ -46,6 +49,7 @@ public class SendPM extends Thread {
         out.println(userSend + " sent a pm: " + message);
     }
     
+    /**
     @Override
     public void run() {
         try {
@@ -57,6 +61,7 @@ public class SendPM extends Thread {
         buffer = new BufferedWriter(strOut);
         out = new PrintWriter(buffer, true);
         // creare la chat con il dest (input stream)
+        
     }
-    
+    */
 }
