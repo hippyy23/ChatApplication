@@ -71,6 +71,7 @@ public class ThreadReader extends Thread {
                             out.println("-------------\n"
                                     + "Nickname set!"
                                     + "\nNow you can start chatting!\n"
+                                    + "Type /list to view the list of all users\n"
                                     + "-------------");
                             break;
                         }
@@ -80,6 +81,7 @@ public class ThreadReader extends Thread {
                     out.println("-------------\n"
                             + "IP address set as nickname!"
                             + "\nNow you can start chatting!\n"
+                            + "Type /list to view the list of all users\n"
                             + "-------------");
                     userName = socket.getInetAddress().toString().replace("/", "");
                     break;
@@ -87,6 +89,7 @@ public class ThreadReader extends Thread {
                     out.println("-------------\n"
                             + "An error occured: IP address set as nikname!"
                             + "\nNow you can start chatting!\n"
+                            + "Type /list to view the list of all users\n"
                             + "-------------");
                     userName = socket.getInetAddress().toString().replace("/", "");
                     break;
@@ -103,9 +106,9 @@ public class ThreadReader extends Thread {
                     } else if (str.equals("/list")) {
                         out.println("-------------\n"
                                 + "User list:");
-                        for (String user : ServerMain.users.values()) {
+                        ServerMain.users.values().forEach((user) -> {
                             out.println(user);
-                        }
+                        });
                         out.println("-------------");
                     } else if (str.contains("/pm")) {
                         pm = str.split("\\s+");
@@ -113,13 +116,17 @@ public class ThreadReader extends Thread {
                             try {
                                 if (pm[1].equals(user.getValue())) {
                                     pmEx = true;
+                                    
+                                    /**
                                     try {
-                                        new SendPM(userName, user.getKey(), pm[2]).send();
+                                        new SendPM(userName, socket, user.getKey(), pm[2]).send();
                                     } catch (ArrayIndexOutOfBoundsException ex) {
                                         out.println("Error private message: missing message!");
                                         // creare una chat privata tra i due user /reply per il dest
                                         // new SendPM(userName, user.getKey()).start();
                                     }
+                                    */ 
+                                    
                                 }
                             } catch (ArrayIndexOutOfBoundsException ex) {
                                 out.println("Error private message: missing user!");
