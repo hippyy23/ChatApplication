@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author 17913
+ * @author Muteanu Adrian
  */
 public class ThreadClient extends Thread {
 

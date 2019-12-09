@@ -2,7 +2,7 @@ package client;
 
 /**
  *
- * @author 17913
+ * @author Muteanu Adrian
  */
 import java.net.*;
 import java.io.*;

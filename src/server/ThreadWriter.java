@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 
 /**
  *
- * @author 17913
+ * @author Muteanu Adrian
  */
 public class ThreadWriter extends Thread {
 

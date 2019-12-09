@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Adrian
+ * @author Muteanu Adrian
  */
 public class SendPM extends Thread {
     
