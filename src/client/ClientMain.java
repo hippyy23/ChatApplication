@@ -42,8 +42,8 @@ public class ClientMain {
                 } else if (conn.equals("/quit")) {
                     System.out.println("Quiting...");
                     System.exit(0);
-                }
-
+                } else if (!conn.equals("/quit") || !conn.contains("/connect"))
+                    System.out.println("Wrong command! retry\n");
             }
 
             try {
@@ -75,13 +75,11 @@ public class ClientMain {
 
             } catch (UnknownHostException e) {
                 synchronized (System.out) {
-                    System.out.println("Host non riconosciuto... " + indirizzo);
-                    input.nextLine();
+                    System.out.println("Host non riconosciuto... " + indirizzo + "\n");
                 }
             } catch (IOException e) {
                 synchronized (System.out) {
-                    System.out.println("Non riesco ad avere I/O per la connessione a: " + indirizzo);
-                    input.nextLine();
+                    System.out.println("Non riesco ad avere I/O per la connessione a: " + indirizzo + "\n");
                 }
             }
         }
