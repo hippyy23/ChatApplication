@@ -62,6 +62,7 @@ public class ThreadReader extends Thread {
                                 sameUser = false;
                             } else if (userName.equals(user)) {
                                 sameUser = true;
+                                break;
                             }
                         }
                         if (sameUser != false) {
