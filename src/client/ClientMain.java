@@ -40,7 +40,7 @@ public class ClientMain {
                     }
                     break;
                 } else if (conn.equals("/quit")) {
-                    System.out.println("Quiting...");
+                    System.out.println("Quitting...");
                     System.exit(0);
                 } else if (!conn.equals("/quit") || !conn.contains("/connect"))
                     System.out.println("Wrong command! retry\n");

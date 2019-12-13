@@ -37,6 +37,7 @@ public class ThreadClient extends Thread {
                 System.out.println(in.readLine());
                 } catch (SocketException ex) {
                     System.out.println("Connection lost!");
+                    break;
                 }
             }
 
