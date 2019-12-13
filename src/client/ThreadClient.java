@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,7 +31,15 @@ public class ThreadClient extends Thread {
             in = new BufferedReader(isr);
 
             while (true) {
-                System.out.println(in.readLine());
+                try {
+                    System.out.println(in.readLine());
+                } catch (SocketException ex) {
+                    System.out.println("Connection with server lost\n"
+                            + "Type /quit to exit");
+                    in.close();
+                    isr.close();
+                    socket.close();
+                }
             }
 
         } catch (IOException ex) {
