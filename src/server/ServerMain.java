@@ -12,10 +12,10 @@ import java.util.HashMap;
  */
 public class ServerMain {
 
-    public static final int PORT = 5000;
-    public static HashMap<Socket, String> users = new HashMap<>();
-    public static ArrayList<Socket> clientThreads = new ArrayList<>();
-    public static ArrayList<String> chat = new ArrayList<>();
+    static final int PORT = 5000;
+    static HashMap<Socket, String> users = new HashMap<>();
+    static ArrayList<Socket> clientThreads = new ArrayList<>();
+    static ArrayList<String> chat = new ArrayList<>();
 
     /**
      * @param args the command line arguments
