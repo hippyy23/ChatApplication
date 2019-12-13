@@ -72,7 +72,7 @@ public class ThreadReader extends Thread {
                             out.println("-------------\n"
                                     + "Nickname set!"
                                     + "\nNow you can start chatting!\n"
-                                    + "Type /list to view the list of all users\n"
+                                    + "Type /help or /? to view the list of all commands\n"
                                     + "-------------");
                             break;
                         }
@@ -82,7 +82,7 @@ public class ThreadReader extends Thread {
                     out.println("-------------\n"
                             + "IP address set as nickname!"
                             + "\nNow you can start chatting!\n"
-                            + "Type /list to view the list of all users\n"
+                            + "Type /help or /? to view the list of all commands\n"
                             + "-------------");
                     userName = socket.getInetAddress().toString().replace("/", "");
                     break;
@@ -90,7 +90,7 @@ public class ThreadReader extends Thread {
                     out.println("-------------\n"
                             + "An error occured: IP address set as nikname!"
                             + "\nNow you can start chatting!\n"
-                            + "Type /list to view the list of all users\n"
+                            + "Type /help or /? to view the list of all commands\n"
                             + "-------------");
                     userName = socket.getInetAddress().toString().replace("/", "");
                     break;
@@ -111,6 +111,13 @@ public class ThreadReader extends Thread {
                             out.println(user);
                         });
                         out.println("-------------");
+                    } else if (str.equals("/help") || str.equals("/?")) {
+                        out.println("-------------\n"
+                                + "List of commands:\n"
+                                + "list of all users: /list\n"
+                                + "private message: /pm [username] [message]\n"
+                                + "disconnect from server: /quit\n"
+                                + "-------------");
                     } else if (str.contains("/pm")) {
                         pm = str.split(" ", 3);
                         for (HashMap.Entry<Socket, String> user : ServerMain.users.entrySet()) {
