@@ -32,13 +32,11 @@ public class ThreadClient extends Thread {
 
             while (true) {
                 try {
-                    System.out.println(in.readLine());
+                // socket exception per scrivere che la connessione e' stata persa
+                // capire come non scriverlo se il client si e' disconnesso 
+                System.out.println(in.readLine());
                 } catch (SocketException ex) {
-                    System.out.println("Connection with server lost\n"
-                            + "Type /quit to exit");
-                    in.close();
-                    isr.close();
-                    socket.close();
+                    System.out.println("Connection lost!");
                 }
             }
 
