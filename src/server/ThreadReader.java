@@ -112,7 +112,7 @@ public class ThreadReader extends Thread {
                         });
                         out.println("-------------");
                     } else if (str.contains("/pm")) {
-                        pm = str.split("\\s+");
+                        pm = str.split(" ", 3);
                         for (HashMap.Entry<Socket, String> user : ServerMain.users.entrySet()) {
                             try {
                                 if (pm[1].equals(user.getValue())) {
