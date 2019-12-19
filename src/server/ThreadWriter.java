@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,7 +33,7 @@ public class ThreadWriter extends Thread {
                         try {
                             strOut = new OutputStreamWriter(ServerMain.clientThreads.get(i).getOutputStream());
                         } catch (IOException ex) {
-                            System.out.print("something went wrong");
+                            Logger.getLogger(ThreadWriter.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         buffer = new BufferedWriter(strOut);
                         out = new PrintWriter(buffer, true);

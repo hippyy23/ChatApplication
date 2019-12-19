@@ -31,7 +31,7 @@ public class ThreadReader extends Thread {
     public void run() {
         System.out.println(socket.getInetAddress() + " joined");
         String[] pm;
-        String userName;
+        String userName = null;
         boolean sameUser = false;
         boolean pmEx = false;
 
@@ -104,6 +104,7 @@ public class ThreadReader extends Thread {
                     if (str.equals("/quit")) {
                         System.out.println(socket.getInetAddress() + " left");
                         ServerMain.clientThreads.remove(socket);
+                        ServerMain.users.remove(socket, userName);
                     } else if (str.equals("/list")) {
                         out.println("-------------\n"
                                 + "User list:");
@@ -151,6 +152,7 @@ public class ThreadReader extends Thread {
         } catch (NullPointerException ex) {
             System.out.println(socket.getInetAddress() + " disconnected");
             ServerMain.clientThreads.remove(socket);
+            ServerMain.users.remove(socket, userName);
             try {
                 socket.close();
             } catch (IOException ex1) {
@@ -159,6 +161,7 @@ public class ThreadReader extends Thread {
         } catch (IOException ex) {
             System.out.println(socket.getInetAddress() + " disconnected");
             ServerMain.clientThreads.remove(socket);
+            ServerMain.users.remove(socket, userName);
         }
     }
 }
